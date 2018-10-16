@@ -1,0 +1,32 @@
+											BNF for python
+											NON-TERMINALS
+
+Goal::= (Function|Statement)* <EOF>
+
+Function::= "def" Identifier "(" Argument? ")" ":" 
+Statement Argument::=Identifier ("=" Value )? ( "," Identifier ("=" Value )?)* 
+Statement ::= tab* "if" Comparison ":" Statement
+|tab* "for" Identifier "in" Identifier ":" Statement
+|tab* "return" Expression
+|tab* "print" Expression (, Expression)*
+|tab* Identifier "=" Expression
+|tab* Identifier "[" Expression "]" "=" Expression
+|tab* Function Call
+
+Expression ::= Expression ( "+" | "-" | "*" ) Expression
+| Identifier "[" Expression "]"
+| Function Call
+| Value
+| Identifier
+| "(" Expression ")"
+| "["Value ( "," Value)*"]"
+
+Comparison::= Expression ( ">" | "<" | ">=" | "<=" ) Expression
+| "true"
+| "false"
+
+Function Call::= Identifier "(" Arglist? ")"
+Arglist::= Expression ( "," Expression )*
+Value::= Number | "<STRING_LITERAL>"
+Number::= <INTEGER_LITERAL> 
+Identifier::= <IDENTIFIER>
